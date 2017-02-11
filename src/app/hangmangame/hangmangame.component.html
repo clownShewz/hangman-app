@@ -1,0 +1,36 @@
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<div id="gallows">
+<!--This needs to created before we attempt to draw with D3 to ensure the DIV exists-->
+</div>
+<div class="ui raised segment centered" *ngIf="wordSubmitted == 'FALSE'" style="height:50vh;">
+  <h2 class="ui header centered">Let's play Hangman!</h2>
+  <h2 class="ui header centered">Have a friend enter a new word below to start. No Looking!!</h2>
+    <form #f="ngForm" class="ui form" (ngSubmit)="onSubmit(f.value)">
+      <div class="field">
+        <label for="wordToGuessInpt">Single Word to Guess</label>
+        <input type="text" id="wordToGuessInpt" name="wordToGuess" autocomplete="off"  ngModel>
+      </div>
+      <button type="submit" class="ui button">Submit</button>
+    </form>
+  </div>
+
+<div class="ui raised segment centered" *ngIf="wordSubmitted=='TRUE'" style="height:50vh;">
+
+
+  <div >
+   <app-hangman [guessCount]="guessCount" ></app-hangman>
+  </div>
+ <div>
+   <app-hangmanwords [guessedWord]="hiddenGuess" [guessedLetters]="guessedLetters"> </app-hangmanwords>
+ </div>
+
+  <h2 class="ui header centered">Enter a Guess</h2>
+  <form  #l="ngForm" class="ui form" >
+    <div class="field">
+      <label for="guessedLetterInpt">Enter a single letter</label>
+      <input type="text" id="guessedLetterInpt" name="guessedLetter" [(ngModel)]="guessedLetter">
+    </div>
+    <button  class="ui button" (click)="evaluateGuess()">Submit</button>
+  </form>
+</div>
+
